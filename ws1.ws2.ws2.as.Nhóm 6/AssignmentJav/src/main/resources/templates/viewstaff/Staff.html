@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{main/MainLayout}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.body {
+	position: relative;
+	left: 600px;
+	top: -190px;
+ 
+}
+
+.containerr {
+	background-color: white;
+	border-radius: 10px;
+}
+@font-face {
+  font-family: myFirstFont;
+  src: url(sansation_light.woff);
+}
+td{
+font-family: Courier New;
+font-size: 18px;
+}
+</style>
+</head>
+<body>
+	<article layout:fragment="content">
+
+
+
+
+
+		<div class="bg">
+			<div class="container">
+				<h3>STAFF LIST</h3>
+				<!-- Button to Open the Modal -->
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#myModal"> ADD NEW STAFF</button>
+					<div th:if="${message != null}">
+									<span th:text="${message}"></span>
+								</div>
+				<!-- The Modal -->
+				<div class="modal" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">ADD NEW STAFF</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<!-- Modal body -->
+							<div class="modal-body">
+								<div th:if="${message != null}">
+									<span th:text="${message}"></span>
+								</div>
+
+								<form th:action="@{/staff/saveOrUpdate}" th:object="${staffDto}"
+									method="post" enctype="multipart/form-data" class="md-form">
+									
+									
+									
+									<div class="form-row">
+									<span th:if="${#fields.hasErrors('departId')}"th:errors="*{departId}"></span> 
+										Department: <select
+										th:field="*{departId}" class="form-control col-md-13">
+										<option th:each="depart : ${departs}" th:value="${depart.id}"
+											th:text="${depart.name}" ></option>
+									</select>
+									
+
+									<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+									Name: <input type="text"th:field="*{name}" class="form-control " />
+
+									<div class="col-md-6 mb-2">
+									<span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+									phone: <input type="text" th:field="*{phone}" class="form-control" /> 
+									</div>
+									
+									<div class="col-md-6 mb-2">
+									<span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+									Gender: <input type="text" th:field="*{gender}"  class="form-control"/>
+									</div>
+												
+									
+									<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+									Email:<input type="text" th:field="*{email}" class="form-control" />
+											
+									<div class="col-md-6 mb-2">
+									<span th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span> 
+									Birth Day:<input type="text" th:field="*{birthday}" class="form-control"/>
+									</div>
+									
+									<div class="col-md-6 mb-2">
+									<span th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+									salary: <input type="text" th:field="*{salary}" class="form-control" /> 
+								    </div>			
+																						
+									<div class="col-md-16 mb-3">
+								    <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>     
+									Photo: <input type="file"  th:field="*{image}" /> 
+									</div>						
+									<div class="col-md-12 mb-3">
+								    <span th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></span>
+									Notes: <input type="text" th:field="*{notes}"  class="form-control" /> 					
+									</div>
+										
+							</div>
+							
+							<!-- Modal footer -->
+							<div class="modal-footer">
+							<input type="submit" value="Add" class="btn btn-primary" />
+								<button type="button" class="btn btn-danger"
+									data-dismiss="modal">Close</button>
+							</div>
+</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="containerr">
+			<div class="container">
+				<table class="table table-bordered">
+					<thead class="thead-dark">
+							<th scope="col">Staff ID</th>
+							<th scope="col">Name</th>
+							<th scope="col">Photo</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Email</th>
+							<th scope="col">Salary</th>
+							<th scope="col">Notes</th>
+							<th scope="col">Birth Day</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Department ID</th>
+							<th scope="col">Eidt</th>
+							<th scope="col">Delete</th>
+						</tr>
+						<tr th:each="staff : ${staffs}">
+							<td th:text="${staff.id}"></td>
+							<td th:text="${staff.name}"></td>
+							<td><img th:src="@{'/getimage/' + ${staff.id}}"
+								th:alt="${staff.photo}" width="80" height="70" /></td>
+							<td th:text="${staff.gender}"></td>
+							<td th:text="${staff.email}"></td>
+							<td th:text="${staff.salary}"></td>
+							<td th:text="${staff.notes}"></td>
+							<td th:text="${staff.birthday}"></td>
+							<td th:text="${staff.phone}"></td>
+							<td th:text="${staff.depart.name}"></td>
+							<td><a th:href="@{'/staff/edit/' + ${staff.id}}" class="btn btn-primary">Edit</a></td> 
+							<td><a th:href="@{'/staff/delete/' + ${staff.id}}" class="btn btn-danger">Delete</a></td>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<a th:href="@{/staff/add}" class="btn btn-primary">LIST ADD STAFF</a>
+	</article>
+</body>
+</html>

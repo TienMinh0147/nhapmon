@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 25px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+</style>
+</head>
+
+<body>
+
+	<form th:action="@{/staffs/find}"> <h2>Find:</h2>
+		<input type="text" name="name" placeholder="Name" style="width: 75%" />
+		<input type="submit" value="Find" style="width: 100px;" />
+	
+	
+	<h1>Liệt kê tất cả các phòng ban</h1>
+	<hr />
+	<table>
+		<tr>
+			<td>Department ID</td>
+			<td>Name</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr th:each="item : ${departs}">
+			<td th:text="${item.id}"></td>
+			<td th:text="${item.name}"></td>
+			<td>
+	         <button><a th:href="@{'/departs/edit/' + ${item.id}} ">Edit</a></button>
+	
+			 <button><a th:href="@{'/departs/delete/' + ${item.id}}">Delete</a></button>
+			
+			
+				</td>
+				
+		</tr>
+		
+	</table>
+                <button> <a th:href="@{/departs/add}" class="btn btn-primary">Home</a></button>
+	</form>
+	
+</body>
+</html>

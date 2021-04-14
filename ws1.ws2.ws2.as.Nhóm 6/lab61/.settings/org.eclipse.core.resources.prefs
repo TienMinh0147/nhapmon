@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/views/record/insert.jsp=UTF-8
+encoding//WebContent/WEB-INF/views/record/report.jsp=UTF-8
+encoding//WebContent/WEB-INF/views/staff/insert.jsp=UTF-8
+encoding//WebContent/WEB-INF/views/staff/update.jsp=UTF-8
+encoding//WebContent/WEB-INF/views/user/index.jsp=UTF-8
+encoding//WebContent/WEB-INF/views/user/list.jsp=UTF-8
+encoding//src/poly/controller/DepartController.java=UTF-8
+encoding//src/poly/controller/RecordController.java=UTF-8
+encoding//src/poly/controller/StaffController.java=UTF-8
+encoding//src/poly/controller/UserController.java=UTF-8
+encoding//src/poly/entity/User.java=UTF-8

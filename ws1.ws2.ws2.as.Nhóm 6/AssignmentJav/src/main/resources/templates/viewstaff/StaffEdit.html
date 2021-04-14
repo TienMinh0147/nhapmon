@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{main/MainLayout}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.body {
+	position: relative;
+	left: 600px;
+	top: -190px;
+}
+</style>
+</head>
+<body>
+	<article layout:fragment="content">
+<div class="container">
+		<form th:action="@{/staff/saveOrUpdate}" th:object="${staff}"
+			method="post" enctype="multipart/form-data">
+			<div th:if="${id > 0}" class="form-group">
+					<label for="departId"> Department ID</label> <input
+						th:field="*{id}" placeholder="Department ID" />
+				</div>
+			<span th:if="${#fields.hasErrors('departId')}"
+				th:errors="*{departId}">
+				</span> 
+				
+				Department: 
+				<select
+				th:field="*{staffDto.departId}">
+				<option th:each="depart : ${departs}" th:value="${depart.id}"
+					th:text="${depart.name}"></option>
+			</select> <br /> <span th:if="${#fields.hasErrors('name')}"
+				th:errors="*{name}"></span> notes: <input type="text"
+				th:field="*{name}" /><br /> <span
+				th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
+			Photo <input type="file" th:field="*{image}" /> <span
+				th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+			Gender: <input type="text" th:field="*{gender}" /> <span
+				th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+			Email: <input type="text" th:field="*{email}" /> salary: <span
+				th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+			<input type="text" th:field="*{salary}" /> Birth Day: <span
+				th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></span>
+			<input type="text" th:field="*{birthday}" /> Notes: <span
+				th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></span> <input
+				type="text" th:field="*{notes}" /> phone: <span
+				th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span> <input
+				type="text" th:field="*{phone}" /> <input type="submit" value="Add" />
+		</form>
+		</div>
+	</article>
+</body>
+</html>

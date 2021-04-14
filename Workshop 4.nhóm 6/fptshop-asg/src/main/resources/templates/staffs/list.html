@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+
+<body>
+
+<form th:action="@{/staffs/find}">
+		<input type="text" name="name" placeholder="Name" style="width: 75%" />
+		<input type="submit" value="FIND" style="width: 100px;" />
+	</form>
+	<hr />
+	<table class="table-responsive">
+		<thead class="thead dark">
+			<tr style="font-weight: bold;">
+				<td>Staff ID</td>
+				<td>Name</td>
+				<td >Gender</td>
+				<td >Birthday</td>
+				<td>Photo</td>
+				<td>Email</td>
+				<td>Phone</td>
+				<td>Salary</td>
+				<td>Department</td>
+				<td>&nbsp;</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="staff : ${staffs}">
+				<td  th:text="${staff.id}"></td>
+				<td th:text=" ${staff.name}"></td>
+				<td th:text=" ${staff.gender}"></td>
+				<td th:text=" ${staff.birthday}"></td>
+				<td>    <img alt=""
+							th:src="@{'/getimage/' +${staff.id}}"></td>
+				<td th:text=" ${staff.email}"></td>
+				<td th:text=" ${staff.phone}"></td>
+				<td th:text=" ${staff.salary}"></td>
+				<td th:text="${staff.depart.name}"></td>
+
+				<td>
+				<button><a th:href="@{'/staffs/edit/' + ${staff.id}}"
+					>Edit</a>| &nbsp;</button>	
+					 
+				<button><a th:href="@{'/staffs/delete/' + ${staff.id}}">Delete</a></button>	
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<a th:href="@{/staffs/add}" class="btn btn-primary">Add new Staffs</a> <br /> 
+</body>
+</html>

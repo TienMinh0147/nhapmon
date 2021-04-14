@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function() {
+		$("#datepicker").datepicker();
+	});
+</script>
+
+</head>
+<body>
+
+
+
+
+
+
+	<form th:action=@{/record/saveOrUpdate} th:object="${RecordDto}"
+		method="post">
+
+		<div class="form-row">
+			Department: <select th:field="*{staffId}"
+				class="form-control col-md-13">
+				<option th:each="staff : ${staffs}" th:value="${staff.id}"
+					th:text="${staff.name}"></option>
+			</select> 
+			
+			Type: <input type="text" th:field="*{type}"/>
+			Reason: <input type="text" th:field="*{reason}"
+				class="form-control " /> <label>Date: </label> <input type="text"
+				id="datepicker" th:field="*{date}" /> <input type="submit"
+				value="Add" class="btn btn-primary" />
+	</form>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{main/MainLayout}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.body{
+	position: relative;
+	left: 600px;
+	top: -190px;
+}
+</style>
+</head>
+<body>
+	<article layout:fragment="content">
+		<h3>Trang Depart</h3>
+		<!-- 		Trang Nhap Depart -->
+		<div class="1">
+			<form th:action="@{/depart/saveOrUpdate}" method="POST"
+				th:object="${depart}">
+				<div th:if="${id > 0}" class="form-group" >
+					<label for="departId"> 
+					Department ID</label>
+					<input th:field="*{id}" class="form-control" disabled/>
+				</div>
+				<div class="form-group">
+					<label for="name" th:text="${message}"> 
+					Name:</label> <input type="text"
+						th:field="*{name}" placeholder="Name" class="form-control" />
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Add" th:if="${id < 0}"
+						class="btn btn-primary" /> <input type="submit" value="Update"
+						th:if="${id > 0}" class="btn btn-primary" /> <a
+						th:href="@{/depart/add}" class="btn btn-primary">New</a> | <a
+						th:href="@{/depart/list}" class="btn bnt-secondary"> List
+						Departments</a>
+				</div>
+			</form>
+		</div>
+		<div class="body">
+			<h1>List All Departments</h1>
+			<form th:action="@{/depart/find}">
+			<div class="form-group mb-2 ">
+				<input type="text" name="name" placeholder="Find By Name"  class="form-control col-12" /> 
+				
+				<input
+					type="submit" value="Find" class="btn btn-secondary" >
+					</div>
+			</form>
+			<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Department ID</td>
+					<th scope="col">Name</td>
+					<th scope="col">&nbsp;</td>
+					<th scope="col">E/D</td>
+<!-- 					<th scope="col">&nbsp;</td> -->
+				</tr>
+				<tr th:each="item : ${departs}">
+					<td th:text="${item.id}"></td>
+					<td th:text="${item.name}"></td>
+					<td>&nbsp;</td>
+					<td><a th:href="@{'/depart/edit/' + ${item.id}}" class="btn btn-primary">Edit </a> | <a
+						th:href="@{'/depart/delete/' + ${item.id}}" class="btn btn-danger">Delete</a></td>
+				</tr>
+				</thead>
+			</table>
+
+
+		</div>
+	</article>
+</body>
+</html>

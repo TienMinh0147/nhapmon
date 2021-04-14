@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+ h2 {
+  display: inline-block;
+  font: bold 4.5em/1.5 Bebas, sans-serif;
+  color: #5CA17C; /*non-webkit fallback*/
+  font-size: 32px;
+  text-transform: uppercase;
+   background-image: linear-gradient(to bottom, #26BDA6, #FF9F65, #DED37E, #26BDA6);
+  background-size: auto 150%;
+  transition: background-position 0.5s;
+    -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 100px;
+  background-position: 0 100%;
+}
+h2s:hover {
+  background-position: 0 0;
+  cursor: pointer;
+  }
+</style>
+    <body>
+        
+        <div class="container">
+            <h2>List Users</h2>
+         </br>
+               <button> <a th:href="@{/departs/add}" class="btn btn-success">Home</a></button>
+               </br>
+                    </br>
+         <center><label th:text="'Hello: '+ ${session.USERNAME}"></label></center>      
+           
+            <table class="table table-bordered" id="customers">
+                <thead>
+                    <tr>
+                        <th>UserName</th>
+                        <th>Password</th>
+                        <th>FullName</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item: ${USERS}">
+                        <td th:text="${item.username}"></td>
+                        <td th:text="${item.password}"></td>
+                        <td th:text="${item.fullname}"></td>
+                        <td th:text="${item.age}"></td>
+                        <td> <span th:text="${item.gender}? 'Male': 'Female' "></span> </td>
+                        <td><a class="btn btn-success btn-sm" th:href="@{'/edit/'+ ${item.username}}">Edit</a> 
+                         <a class="btn btn-success btn-sm" th:href="@{'/delete/'+ ${item.username}}">Delete</a></td>
+                    </tr>
+
+                    
+                </tbody>
+            </table>
+             <p>
+            	</br><a href="/logout" class="btn btn-primary"> Logout</a>
+            	 <a class="btn btn-success" href="/">Add User</a>
+            	
+            </p>
+             
+              
+               
+        </div>
+         
+    </body>
+</html>

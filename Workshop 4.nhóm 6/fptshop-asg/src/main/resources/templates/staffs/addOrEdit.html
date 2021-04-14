@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/admin.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div th:if="${message !=null}">
+			<span th:text="${message}"></span>
+		</div>
+		<form th:action="@{/staffs/saveOrUpdate}" th:object="${staffDto}"
+			method="post" enctype="multipart/form-data">
+
+			<div class="form-group">
+						<div th:if="${id>0}">
+							<label>Staff ID: </label>
+							<input th:field="*{id}" placeholder="Staff ID" class="form-control" />
+						</div>
+					</div>
+
+				<div class="form-group">
+					<label>Department</label> <select th:field="*{departId}"
+						class="form-control">
+						<option th:each="depart : ${departs}" 
+								th:value="${depart.id}"
+							    th:text="${depart.name}"></option>
+					</select> 
+					</div>
+					
+				<div class="form-group">
+					<label>Name</label> 
+					<input type="text" class="form-control" th:field="*{name}"> 
+				</div>
+
+				<div class="form-group">
+					<label>Gender</label>
+					<div class="radio">
+						<label class="checkbox-inline"> <input type="radio"
+							name="gender" value="1" id="gender1" th:field="*{gender}" />Male
+						</label> 
+						
+						<label class="checkbox-inline"> <input type="radio"
+							name="gender" checked="checked" value="0" id="gender2"
+							th:field="*{gender}" />FeMale
+						</label>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label>Birthday</label> 
+					<input type="text" class="form-control" th:field="*{birthday}"> 				
+				</div>
+				
+				
+				
+				<div class="form-group">
+					<label>Photo</label> 
+					<input type="file" class="form-control" th:field="*{image}"> 
+							
+							
+					<!--  
+					<span th:if="${#fields.hasErrors('image')}" th:errors="*{image}">
+						Empty iamge</span>
+						-->
+				</div>
+				
+				<div class="form-group">
+					<label>Email</label> <input type="text" class="form-control" th:field="*{email}"> 	
+				</div>
+				
+				<div class="form-group">
+					<label>phone</label> <input type="tel" class="form-control" th:field="*{phone}"> 	
+				</div>
+				
+				<div class="form-group">
+					<label>Salary</label> <input type="number" class="form-control" th:field="*{salary}"> 
+				</div>
+
+
+			<input type="submit" value="Add" th:if="${id<=0}"
+				class="btn btn-primary" /> <input type="submit" value="Update"
+				class="btn btn-primary" th:if="${id>0}" /> <a
+				th:href="@{/staffs/list}" class="btn btn-primary">List</a>
+		</form>
+		<hr />
+		<h4>Errors</h4>
+		<ul style="color: red;" th:if="${#fields.hasErrors('${staffDto.*}')}">
+			<li th:each="err: ${#fields.errors('${staffDto.*}')}"
+				th:text="${err}">Input is inncorrect</li>
+		</ul>
+	</div>
+
+</body>
+</html>

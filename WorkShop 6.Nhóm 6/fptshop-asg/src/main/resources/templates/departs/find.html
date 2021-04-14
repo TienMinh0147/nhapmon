@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+button{
+  background-color:
+
+Gray;
+height:40px;
+    width:60px;
+
+}
+h1 {
+  display: inline-block;
+  font: bold 4.5em/1.5 Bebas, sans-serif;
+  color: #5CA17C; /*non-webkit fallback*/
+  font-size: 32px;
+  text-transform: uppercase;
+   background-image: linear-gradient(to bottom, #26BDA6, #FF9F65, #DED37E, #26BDA6);
+  background-size: auto 150%;
+  transition: background-position 0.5s;
+    -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 100px;
+  background-position: 0 100%;
+}
+h1:hover {
+  background-position: 0 0;
+  cursor: pointer;
+}
+</style>
+<body>
+	<h1>List All Departments</h1>
+	<form th:action="@{/departs/find}">
+	</br>
+	<button> <strong><a th:href="@{/departs/add}" class="btn btn-primary">Home</a></strong></button>
+		</br>
+				</br>
+	Name:
+	<input type="text" name="name"placeholder="Name" />
+	<input type="submit" value="Find" />
+	</form>
+	 
+	<hr />
+	<table id="customers">
+		<tr>
+			<td>Department ID</td>
+			<td>Name</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr th:each="item : ${departs}">
+			<td th:text="${item.id}"></td>
+			<td th:text="${item.name}"></td>
+	<td>
+			<button><a th:href="@{'/departs/edit/' + ${item.id}}" >Edit</a> </button>	
+			
+		<button> <a th:href="@{'/departs/delete/' + ${item.id}}">Delete</a></button>	</td>
+		</tr>
+</table>
+</body>
+</html>
